@@ -6,6 +6,9 @@ vector<int>getTwoLargestNumbers(vector<int>&A){
             max2=max1;
             max1=A[i];
         }
+        else if(max1==A[i]){
+            max2=max1;
+        }
         else{
             if(max2<A[i]&&A[i]!=max1){
                 max2=A[i];
