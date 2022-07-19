@@ -12,27 +12,31 @@ public:
                 cout<<"mid is now equal to target : "<<mid<<"\n";
                 index.push_back(mid);
                 long l, r;
-                for(int i = 1; i < nums.size(); i++)
-                {
-                    
-                    l = mid - i;
-                    //cout<<"leftside number is : "<<nums[l]<<"\n";
-                    r = mid + i;
-                   //  cout<<"rightside number is : "<<nums[r]<<"\n";
-                    if(r < nums.size())
-                    {
-                        if(nums[r] == target)
-                            index.push_back(r);
+                l=mid-1;
+                cout<<"value of l :"<<l<<endl; 
+                r=mid+1;
+                cout<<"value of r :"<<r<<endl; 
+                for(int i=l;i>=0;i--){
+                    cout<<"go in for "<<endl;
+                    if(nums[i]==target){
+                        cout<<"goes in if"<<endl;
+                       // cout<<nu<<endl;
+                        index.push_back(i);
                     }
-                    
-                    if(l >= 0)
-                    {
-                        if(nums[l] == target)
-                         //   cout<<"leftside number is : "<<nums[l]<<"\n";
-                            index.push_back(l);
+                    else{
+                        break;
+                    }
+                }
+                for(int i=r;i<nums.size();i++){
+                    if(nums[i]==target){
+                        index.push_back(i);
+                    }
+                    else{
+                        break;
                     }
                 }
                 break;
+             
             }
             if(nums[mid] > target){
                 end = mid-1;
