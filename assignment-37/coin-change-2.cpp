@@ -1,40 +1,31 @@
 class Solution {
     public:
-  int solveDP(vector<int>& coins, int amount) {
-        
-        int n = coins.size();
-        int dp[amount + 1];
-        
-        for(int i=0; i<=amount; i++)
-            dp[i] = INT_MAX;
-        
-        dp[0] = 0;
-        
-        for(int i=1; i<=amount; i++)
-        {
-            for(int j=0; j<n; j++)
-            {
-                if(coins[j] <= i)
-                {
-                    int sub_res = dp[i - coins[j]];
-                    if(sub_res != INT_MAX)  
-                        dp[i] = min(sub_res + 1, dp[i]);
-                }
+    int f(int i,vector<int>& arr,int target,vector<vector<int>>& dp){
+        if(i==0){
+            if(target%arr[i]==0){
+                return target/arr[i];
+            }
+            else{
+                return 1e9;
             }
         }
-        
-        return dp[amount];
-        
+        if(dp[i][target]!=-1){
+            return dp[i][target];
+        }
+        int take=1e9;
+        if(target>=arr[i]){
+            take = 1+f(i,arr,target-arr[i],dp);
+        }
+        int not_take = 0+f(i-1,arr,target,dp);
+        return dp[i][target] = min(take,not_take);
     }
-    
+public:
     int coinChange(vector<int>& coins, int amount) {
-        // int res = solve(coins, amount, coins.size());
-        int res = solveDP(coins, amount);
-
-        if(res != INT_MAX)
-            return res;
-        return -1;
-        
-        
+        vector<vector<int>> dp(coins.size(),vector<int>(amount+1,-1));
+        int ans = f(coins.size()-1,coins,amount,dp);
+        if(ans==1e9){
+            return -1;
+        }
+        return ans;
     }
 };
